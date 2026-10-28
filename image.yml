@@ -8,9 +8,10 @@ summary: |-
 upstream:
   url: https://www.microsoft.com/edge
   version:
-    type: command
-    run: |-
-      curl -sL https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/ | awk -F'(<a href="microsoft-edge-stable_|_amd64.deb")' '/href=/ {print $2}' | sort --version-sort | tail -1 | sed 's|.*stable_||' | sed 's|_amd64.*||'
+    type: regex
+    url: https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/
+    pattern: microsoft-edge-stable_([^"_]+)_amd64\.deb"
+    sort: version
 
 release:
   branch: master
